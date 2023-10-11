@@ -56,10 +56,18 @@ dependencies {
     // Material 3
     implementation("com.google.android.material:material:1.10.0")
     //DaggerHilt
-    implementation("com.google.dagger:hilt-android:2.48")
-    kapt("com.google.dagger:hilt-compiler:2.48")
+    val daggerVersion = "2.48"
+    implementation("com.google.dagger:hilt-android:$daggerVersion")
+    kapt("com.google.dagger:hilt-compiler:$daggerVersion")
+
     //Room
-    implementation("androidx.room:room-ktx:2.4.0")
-    kapt("androidx.room:room-compiler:2.4.0")
+    val roomVersion = "2.4.0"
+    implementation("androidx.room:room-ktx:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
+
+    //NavComponent
+    val navVersion = "2.7.1"
+    implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
+    implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
 
 }

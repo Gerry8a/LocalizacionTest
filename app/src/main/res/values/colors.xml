@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="seed">#cadc73</color>
+    <color name="primary">#aae1cb</color>
     <color name="md_theme_light_primary">#566500</color>
     <color name="md_theme_light_onPrimary">#FFFFFF</color>
     <color name="md_theme_light_primaryContainer">#D9EC7B</color>
