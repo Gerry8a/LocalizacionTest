@@ -7,12 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gochoa.localizaciontest.R
-import com.gochoa.localizaciontest.data.domain.model.TaskModel
-import com.gochoa.localizaciontest.data.domain.model.TaskStatus
+import com.gochoa.localizaciontest.domain.model.TaskModel
+import com.gochoa.localizaciontest.domain.model.TaskStatus
 import com.gochoa.localizaciontest.databinding.FragmentTaskBinding
 import com.gochoa.localizaciontest.ui.task.adapter.TaskAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class TaskFragment : Fragment() {
 
     private lateinit var binding: FragmentTaskBinding

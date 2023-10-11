@@ -5,10 +5,12 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.gochoa.localizaciontest.R
-import com.gochoa.localizaciontest.data.domain.model.TaskModel
-import com.gochoa.localizaciontest.data.domain.model.TaskStatus
+import com.gochoa.localizaciontest.domain.model.TaskModel
+import com.gochoa.localizaciontest.domain.model.TaskStatus
 import com.gochoa.localizaciontest.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

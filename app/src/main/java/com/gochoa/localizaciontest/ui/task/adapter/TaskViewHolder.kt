@@ -2,7 +2,7 @@ package com.gochoa.localizaciontest.ui.task.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.gochoa.localizaciontest.data.domain.model.TaskModel
+import com.gochoa.localizaciontest.domain.model.TaskModel
 import com.gochoa.localizaciontest.databinding.ItemTaskBinding
 
 class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view){

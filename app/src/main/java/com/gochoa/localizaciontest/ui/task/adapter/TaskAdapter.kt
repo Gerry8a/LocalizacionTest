@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gochoa.localizaciontest.R
-import com.gochoa.localizaciontest.data.domain.model.TaskModel
+import com.gochoa.localizaciontest.domain.model.TaskModel
 
 class TaskAdapter(
     private var taskList: List<TaskModel> = emptyList(),

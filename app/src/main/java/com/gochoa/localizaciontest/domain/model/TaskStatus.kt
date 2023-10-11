@@ -1,4 +1,4 @@
-package com.gochoa.localizaciontest.data.domain.model
+package com.gochoa.localizaciontest.domain.model
 
 sealed class TaskStatus (){
     object ToDo : TaskStatus()
