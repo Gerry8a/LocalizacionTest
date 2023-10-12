@@ -4,12 +4,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gochoa.localizaciontest.R
+import com.gochoa.localizaciontest.data.local.entity.TaskEntity
 import com.gochoa.localizaciontest.domain.model.TaskModel
 
 class TaskAdapter(
-    private var taskList: List<TaskModel> = emptyList(),
-    private val onItemSelected: (TaskModel) -> Unit
+    private var taskList: List<TaskEntity> = emptyList(),
+    private val onItemSelected: (TaskEntity) -> Unit
 ) : RecyclerView.Adapter<TaskViewHolder>() {
+
+    fun updateList(list: List<TaskEntity>) {
+        taskList = list
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         return TaskViewHolder(

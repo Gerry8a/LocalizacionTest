@@ -1,15 +1,18 @@
 package com.gochoa.localizaciontest.ui.task
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.gochoa.localizaciontest.R
-import com.gochoa.localizaciontest.domain.model.TaskModel
-import com.gochoa.localizaciontest.domain.model.TaskStatus
+import com.gochoa.localizaciontest.data.local.UIState
+import com.gochoa.localizaciontest.data.local.entity.TaskEntity
 import com.gochoa.localizaciontest.databinding.FragmentTaskBinding
+import com.gochoa.localizaciontest.domain.model.TaskModel
 import com.gochoa.localizaciontest.ui.task.adapter.TaskAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,6 +21,7 @@ class TaskFragment : Fragment() {
 
     private lateinit var binding: FragmentTaskBinding
     private lateinit var taskAdapter: TaskAdapter
+    private val viewModel: TaskViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,28 +31,38 @@ class TaskFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val taskModel = TaskModel(title = "Empezar test", date = "Creado el 10/10/2023", description = "Texto de prueba", status = TaskStatus.ToDo)
-        val ttt = TaskModel(title = "Empezar test", date = "Creado el 10/10/2023", description = "Texto de prueba", status = TaskStatus.ToDo)
-        val ggg = TaskModel(title = "Empezar test", date = "Creado el 10/10/2023", description = "Texto de prueba", status = TaskStatus.ToDo)
-        val lista = arrayListOf(taskModel, ttt, ggg)
-
-        taskAdapter = TaskAdapter(lista){taskModel -> onItemSelected(taskModel)}
+    private fun initUI() {
+        taskAdapter = TaskAdapter(onItemSelected = {
+            Toast.makeText(requireContext(), it.title, Toast.LENGTH_SHORT).show()
+        })
         binding.rvTask.apply {
             adapter = taskAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
-
-//        when(taskModel.status){
-//            TaskStatus.Finished -> binding.tvMdid.text = "Terminado"
-//            TaskStatus.InProgress -> binding.tvMdid.text = "inProgress"
-//            TaskStatus.ToDo -> binding.tvMdid.text = "Por hace"
-//        }
     }
 
-    private fun onItemSelected(task: TaskModel) {
-//        getLatLng(medio)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initUI()
+
+        val entidad = TaskEntity(
+            title = "Empezar test",
+            date = "Creado el 10/10/2023",
+            description = "Texto de prueba"
+        )
+
+//        viewModel.insertTask(entidad)
+
+        viewModel.taskList.observe(requireActivity()) {
+            when (it) {
+                is UIState.Error -> {
+                }
+
+                is UIState.Loading -> {}
+                is UIState.Success -> {
+                    taskAdapter.updateList(it.data!!)
+                }
+            }
+        }
     }
 }

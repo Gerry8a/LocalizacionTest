@@ -1,8 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -58,16 +58,20 @@ dependencies {
     //DaggerHilt
     val daggerVersion = "2.48"
     implementation("com.google.dagger:hilt-android:$daggerVersion")
-    kapt("com.google.dagger:hilt-compiler:$daggerVersion")
+    ksp("com.google.dagger:hilt-compiler:$daggerVersion")
 
     //Room
-    val roomVersion = "2.5.0"
+    val roomVersion = "2.5.2"
     implementation("androidx.room:room-ktx:$roomVersion")
-    kapt("androidx.room:room-compiler:$roomVersion")
+    ksp("androidx.room:room-compiler:$roomVersion")
+
 
     //NavComponent
     val navVersion = "2.7.1"
     implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
     implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
+
+    //Corrutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
 
 }

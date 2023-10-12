@@ -3,7 +3,6 @@ package com.gochoa.localizaciontest.di
 import android.content.Context
 import androidx.room.Room
 import com.gochoa.localizaciontest.data.local.TaskDatabase
-import com.gochoa.localizaciontest.utils.Dictionary.TASK_DATABASE
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,11 +17,10 @@ object RoomModule {
     @Singleton
     @Provides
     fun provideRoom(@ApplicationContext context: Context) = Room.databaseBuilder(
-        context, TaskDatabase::class.java, TASK_DATABASE
+        context, TaskDatabase::class.java, "sdfsd.db"
     ).build()
 
     @Singleton
     @Provides
-    fun provideTaskDao(db: TaskDatabase) = db.getTaskDao()
-
+    fun provideTaskDao(db: TaskDatabase) = db.taskDao()
 }

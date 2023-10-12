@@ -6,12 +6,7 @@ import com.gochoa.localizaciontest.data.local.dao.TaskDao
 import com.gochoa.localizaciontest.data.local.entity.TaskEntity
 import com.gochoa.localizaciontest.utils.Dictionary.DATABASE_VERSION
 
-@Database(
-    entities = [
-        TaskEntity::class
-    ],
-    version = DATABASE_VERSION
-)
-abstract class TaskDatabase : RoomDatabase(){
- abstract fun getTaskDao(): TaskDao
+@Database(entities = [TaskEntity::class], version = 1)
+abstract class TaskDatabase : RoomDatabase() {
+    abstract fun taskDao(): TaskDao
 }
