@@ -3,6 +3,7 @@ package com.gochoa.localizaciontest.domain.repository
 import com.gochoa.localizaciontest.data.local.dao.TaskDao
 import com.gochoa.localizaciontest.data.local.entity.TaskEntity
 import com.gochoa.localizaciontest.domain.model.TaskModel
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 
@@ -12,6 +13,6 @@ class RepositoryImp @Inject constructor(
 
     override suspend fun insertTask(task: TaskEntity) = taskDao.insertTask(task)
 
-    override suspend fun getAllTask(): MutableList<TaskEntity> = taskDao.getAllTasks()
+    override suspend fun getAllTask(): Flow<MutableList<TaskEntity>> = taskDao.getAllTasks()
 
     }

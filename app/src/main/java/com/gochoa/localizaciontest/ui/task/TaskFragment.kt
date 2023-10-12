@@ -14,6 +14,8 @@ import com.gochoa.localizaciontest.data.local.entity.TaskEntity
 import com.gochoa.localizaciontest.databinding.FragmentTaskBinding
 import com.gochoa.localizaciontest.domain.model.TaskModel
 import com.gochoa.localizaciontest.ui.task.adapter.TaskAdapter
+import com.gochoa.localizaciontest.ui.task.component.AddTaskDialog
+import com.gochoa.localizaciontest.utils.DateFormatted.getDate
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -43,26 +45,45 @@ class TaskFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initUI()
+//        initUI()
+        clickEvents()
+        buildObservers()
+    }
 
-        val entidad = TaskEntity(
-            title = "Empezar test",
-            date = "Creado el 10/10/2023",
-            description = "Texto de prueba"
-        )
-
-//        viewModel.insertTask(entidad)
-
+    private fun buildObservers() {
         viewModel.taskList.observe(requireActivity()) {
             when (it) {
                 is UIState.Error -> {
                 }
-
                 is UIState.Loading -> {}
                 is UIState.Success -> {
-                    taskAdapter.updateList(it.data!!)
+                    fillData(it.data!!)
                 }
             }
+        }
+    }
+
+    private fun fillData(taskList: MutableList<TaskEntity>) {
+        taskAdapter = TaskAdapter(taskList, onItemSelected = {
+            Toast.makeText(requireContext(), it.title, Toast.LENGTH_SHORT).show()
+        })
+        binding.rvTask.apply {
+            adapter = taskAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+    }
+
+    private fun clickEvents() {
+        binding.fab.setOnClickListener {
+            AddTaskDialog(onSubmitClickListener = { title, description ->
+                val task = TaskEntity(
+                    title = title,
+                    date = getDate(requireContext()),
+                    description = description
+                )
+                viewModel.insertTask(task)
+            }
+            ).show(parentFragmentManager, "dialog")
         }
     }
 }

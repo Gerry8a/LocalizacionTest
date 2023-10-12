@@ -8,40 +8,31 @@ import com.gochoa.localizaciontest.data.local.UIState
 import com.gochoa.localizaciontest.data.local.entity.TaskEntity
 import com.gochoa.localizaciontest.domain.repository.RepositoryImp
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class TaskViewModel @Inject constructor(
     private val repositoryImp: RepositoryImp
-): ViewModel() {
+) : ViewModel() {
 
     private val _taskList = MutableLiveData<UIState<MutableList<TaskEntity>>>()
     val taskList: LiveData<UIState<MutableList<TaskEntity>>> get() = _taskList
 
     init {
-        val taskEntity = TaskEntity(
-            status = "asd",
-            description = "asd",
-            date = "asd",
-            title = "sdsf"
-        )
-//        insertTask(taskEntity)
-        getTasks()
+        getTask()
     }
 
-    fun getTasks() = viewModelScope.launch {
-        repositoryImp.getAllTask().let {
-            if (it.isNotEmpty()){
-              _taskList.value = UIState.Success(it)
-            } else {
-                _taskList.value = UIState.Error("dsfds")
+    fun getTask() = viewModelScope.launch {
+        repositoryImp.getAllTask()
+            .catch {
+                _taskList.postValue(UIState.Error(""))
             }
-        }
+            .collect{_taskList.postValue(UIState.Success(it))}
     }
 
-    fun insertTask(task: TaskEntity) = viewModelScope.launch{
-
+    fun insertTask(task: TaskEntity) = viewModelScope.launch {
         repositoryImp.insertTask(task)
     }
 

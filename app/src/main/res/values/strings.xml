@@ -2,4 +2,14 @@
     <string name="app_name">LocalizacionTest</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_note">Nueva nota</string>
+    <string name="title">Título</string>
+    <string name="description">Descripción</string>
+    <string name="new_task">Nueva tarea</string>
+    <string name="add">Agregar</string>
+    <string name="date_created">Creado el %s</string>
+    <string name="asds">sdfsd</string>
+    <string name="date_format">"dd/MM/yyyy"</string>
+
+
 </resources>

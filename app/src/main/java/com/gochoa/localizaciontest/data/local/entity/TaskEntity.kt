@@ -8,7 +8,7 @@ import com.gochoa.localizaciontest.utils.Dictionary.TASK_TABLE
 @Entity(tableName = TASK_TABLE)
 data class TaskEntity(
     @PrimaryKey(autoGenerate = true)
-    var taskId: Int = 1,
+    var taksId: Int = 0,
     @ColumnInfo(name = "title")
     var title: String,
     @ColumnInfo(name = "description")
@@ -17,4 +17,6 @@ data class TaskEntity(
     val date: String,
     @ColumnInfo(name = "status")
     var status: String = "Por hacer"
-)
+){
+
+}
