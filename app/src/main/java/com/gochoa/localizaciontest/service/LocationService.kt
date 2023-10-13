@@ -44,9 +44,8 @@ class LocationService : Service() {
 
     private fun start() {
         val notification = NotificationCompat.Builder(this, "location")
-            .setContentTitle("Tracking location...")
-            .setContentText("Location: null")
-            .setSmallIcon(R.drawable.ic_launcher_background)
+            .setContentTitle(getString(R.string.traveling))
+            .setSmallIcon(R.drawable.ic_location)
             .setOngoing(true)
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -58,7 +57,7 @@ class LocationService : Service() {
                 val lat = location.latitude.toString()
                 val long = location.longitude.toString()
                 val updatedNotification = notification.setContentText(
-                    "Location: ($lat, $long)"
+                    "Ubicación: ($lat, $long)"
                 )
                 notificationManager.notify(1, updatedNotification.build())
             }

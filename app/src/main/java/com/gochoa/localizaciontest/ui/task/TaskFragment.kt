@@ -37,8 +37,10 @@ class TaskFragment : Fragment() {
     private lateinit var binding: FragmentTaskBinding
     private lateinit var taskAdapter: TaskAdapter
     private val viewModel: TaskViewModel by viewModels()
-    var locationPermissionAccepted = false
+    private var locationPermissionAccepted = false
     private lateinit var locationClient: LocationClient
+    private var serviceOn = false
+    
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,20 +54,12 @@ class TaskFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         requestLocationPermission()
         clickEvents()
-        askNotification()
         buildObservers()
 
         locationClient = DefaultLocationClient(
             requireContext(),
             LocationServices.getFusedLocationProviderClient(requireContext())
         )
-
-        binding.servicio.setOnClickListener {
-            val intent = Intent(requireContext(), LocationService::class.java)
-            intent.action = LocationService.ACTION_START
-            requireContext().startService(intent)
-            updateCoordinates()
-        }
     }
 
     private fun updateCoordinates() {
@@ -104,7 +98,6 @@ class TaskFragment : Fragment() {
             ),
             0
         )
-
     }
 
     private fun buildObservers() {
@@ -112,7 +105,6 @@ class TaskFragment : Fragment() {
             when (it) {
                 is UIState.Error -> {
                 }
-
                 is UIState.Loading -> {}
                 is UIState.Success -> {
                     fillData(it.data!!)
@@ -139,9 +131,32 @@ class TaskFragment : Fragment() {
                     date = getDate(requireContext()),
                     description = description
                 )
-                viewModel.insertTask(task)
+                if (task.title.isEmpty() || task.description.isEmpty()){
+                    Toast.makeText(requireContext(), "Falta información", Toast.LENGTH_SHORT).show()
+                } else {
+                    viewModel.insertTask(task)
+                }
             }
             ).show(parentFragmentManager, "dialog")
+        }
+
+        binding.servicio.setOnClickListener {
+            if (!serviceOn){
+                val intent = Intent(requireContext(), LocationService::class.java)
+                intent.action = LocationService.ACTION_START
+                requireContext().startService(intent)
+                updateCoordinates()
+                Toast.makeText(requireContext(), "Iniciando servicio", Toast.LENGTH_SHORT).show()
+                serviceOn = true
+            } else {
+                val intent = Intent(requireContext(), LocationService::class.java)
+                intent.action = LocationService.ACTION_STOP
+                requireContext().startService(intent)
+                updateCoordinates()
+                serviceOn = false
+                Toast.makeText(requireContext(), "Terminando servicio", Toast.LENGTH_SHORT).show()
+            }
+            
         }
     }
 
@@ -151,10 +166,12 @@ class TaskFragment : Fragment() {
         ) { isGranted: Boolean ->
             if (isGranted) {
                 locationPermissionAccepted = true
-                //setUpMap()
+                askNotification()
             } else {
                 locationPermissionAccepted = false
-                //  showShortToast(getString(R.string.alert_permission_needed))
+                Toast.makeText(requireContext(),
+                    getString(R.string.permission_needed), Toast.LENGTH_SHORT).show()
+                askNotification()
             }
         }
 
@@ -165,6 +182,7 @@ class TaskFragment : Fragment() {
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED -> {
                 locationPermissionAccepted = true
+                askNotification()
             }
 
             shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
@@ -174,10 +192,8 @@ class TaskFragment : Fragment() {
                 requestPermissionLauncher.launch(
                     Manifest.permission.ACCESS_FINE_LOCATION
                 )
-//                showAlertdialog(
-//                    "Atención",
-//                    "Es neesario aceptar los permisos para usar la aplicación"
-//                )
+           Toast.makeText(requireContext(),
+                    getString(R.string.permission_needed), Toast.LENGTH_SHORT).show()
             }
 
             else -> {
