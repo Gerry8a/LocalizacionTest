@@ -1,7 +1,7 @@
 ## Requerimientos
 
 #Crear tareas y podrán tener los siguientes status:
--Por hacer
+- Por hacer
 -En progreso
 -Concluida
 #Al crear nueva tarea tendrá:
