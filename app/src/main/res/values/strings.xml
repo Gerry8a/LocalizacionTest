@@ -10,6 +10,8 @@
     <string name="date_created">Creado el %s</string>
     <string name="asds">sdfsd</string>
     <string name="date_format">"dd/MM/yyyy"</string>
+    <string name="coordinates">Coordenadas: </string>
+    <string name="coordinates_value">%s,%s</string>
 
 
 </resources>
