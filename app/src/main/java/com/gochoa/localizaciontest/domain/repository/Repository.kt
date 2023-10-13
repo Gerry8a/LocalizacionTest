@@ -7,4 +7,5 @@ import kotlinx.coroutines.flow.Flow
 interface Repository {
     suspend fun insertTask(task: TaskEntity)
     suspend fun getAllTask(): Flow<MutableList<TaskEntity>>
+    suspend fun updateStatus(entity: TaskEntity)
 }

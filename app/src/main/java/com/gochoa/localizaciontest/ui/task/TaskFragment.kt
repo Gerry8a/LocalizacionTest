@@ -48,19 +48,8 @@ class TaskFragment : Fragment() {
         return binding.root
     }
 
-    private fun initUI() {
-        taskAdapter = TaskAdapter(onItemSelected = {
-            Toast.makeText(requireContext(), it.title, Toast.LENGTH_SHORT).show()
-        })
-        binding.rvTask.apply {
-            adapter = taskAdapter
-            layoutManager = LinearLayoutManager(requireContext())
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        initUI()
         requestLocationPermission()
         clickEvents()
         askNotification()
@@ -134,7 +123,7 @@ class TaskFragment : Fragment() {
 
     private fun fillData(taskList: MutableList<TaskEntity>) {
         taskAdapter = TaskAdapter(taskList, onItemSelected = {
-            Toast.makeText(requireContext(), it.title, Toast.LENGTH_SHORT).show()
+            viewModel.updateTask(it)
         })
         binding.rvTask.apply {
             adapter = taskAdapter

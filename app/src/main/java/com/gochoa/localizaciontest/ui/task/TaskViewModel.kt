@@ -29,12 +29,25 @@ class TaskViewModel @Inject constructor(
             .catch {
                 _taskList.postValue(UIState.Error(""))
             }
-            .collect{_taskList.postValue(UIState.Success(it))}
+            .collect { _taskList.postValue(UIState.Success(it)) }
     }
 
     fun insertTask(task: TaskEntity) = viewModelScope.launch {
         repositoryImp.insertTask(task)
     }
 
-
+    fun updateTask(task: TaskEntity) = viewModelScope.launch {
+        when (task.status) {
+            "Por hacer" -> {
+                task.status = "En progreso"
+            }
+            "En progreso" -> {
+                task.status = "Terminada"
+            }
+            "Terminada" -> {
+                task.status = "En progreso"
+            }
+        }
+        repositoryImp.updateStatus(task)
+    }
 }

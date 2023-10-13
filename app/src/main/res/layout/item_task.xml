@@ -8,11 +8,10 @@
     android:padding="4dp">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cvTask"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        app:cardBackgroundColor="@color/primary"
-
+        app:cardBackgroundColor="@color/md_theme_light_inversePrimary"
         app:cardCornerRadius="20dp"
         tools:ignore="MissingConstraints">
 
@@ -28,7 +27,6 @@
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/tvContent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -37,30 +35,44 @@
             <TextView
                 android:id="@+id/tvContent"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="0dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="sdfdsfsdfsdfdsfdsdfdsfsdfdsfsdfsdfdsfdsdfdsfsdfdsfsdfsdfdsfdsdfdsfsdfdsfsdfsdfdsfdsdfdsfsdfdsfsdfsdfdsfdsdfdsfsdfdsfsdfsdfdsfdsdfdsfsdfdsfsdfsdfdsfdsdfdsfsdfdsfsdfsdfdsfdsdfdsfsdfdsfsdfsdfdsfdsdfdsfsdfdsfsdfsdfdsfdsdfdsfsdfdsfsdfsdfdsfdsdfdsf"
                 android:textColor="@color/black"
                 android:textSize="13sp"
-                app:layout_constraintBottom_toTopOf="@+id/tvDate"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
             <TextView
                 android:id="@+id/tvDate"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="7dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
                 android:gravity="end"
                 android:paddingRight="8dp"
                 android:textColor="@color/black"
+                android:textStyle="italic"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvContent"
                 tools:text="Creado el 10/10/2023" />
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="start"
+                android:paddingLeft="8dp"
+                android:text="En curso"
+                android:textColor="@color/black"
+                android:textStyle="italic"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvContent" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

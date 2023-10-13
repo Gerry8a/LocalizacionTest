@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.gochoa.localizaciontest.data.local.entity.TaskEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -16,7 +17,7 @@ interface TaskDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTask(taskEntity: TaskEntity)
 
-//    @Query("UPDATE TASK_TABLE SET taskId = :id")
-//    suspend fun updateWorkCenter(id: Int, centroTrabajoAct: String)
+    @Update
+    suspend fun updateStatus(entity: TaskEntity)
 
 }

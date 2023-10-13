@@ -14,5 +14,8 @@ class RepositoryImp @Inject constructor(
     override suspend fun insertTask(task: TaskEntity) = taskDao.insertTask(task)
 
     override suspend fun getAllTask(): Flow<MutableList<TaskEntity>> = taskDao.getAllTasks()
-
+    override suspend fun updateStatus(entity: TaskEntity) {
+      taskDao.updateStatus(entity)
     }
+
+}

@@ -14,11 +14,6 @@ class TaskAdapter(
     private val onItemSelected: (TaskEntity) -> Unit
 ) : RecyclerView.Adapter<TaskViewHolder>() {
 
-    fun updateList(list: List<TaskEntity>) {
-        taskList = list
-        notifyDataSetChanged()
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         return TaskViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_task, parent, false)
@@ -31,15 +26,5 @@ class TaskAdapter(
         holder.render(taskList[position], onItemSelected)
     }
 
-    private val differCallback = object : DiffUtil.ItemCallback<TaskEntity>(){
-        override fun areItemsTheSame(oldItem: TaskEntity, newItem: TaskEntity): Boolean {
-            return oldItem.taksId == newItem.taksId
-        }
 
-        override fun areContentsTheSame(oldItem: TaskEntity, newItem: TaskEntity): Boolean {
-            return oldItem == newItem
-        }
-    }
-
-    val differ = AsyncListDiffer(this, differCallback)
 }
