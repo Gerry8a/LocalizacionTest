@@ -14,7 +14,7 @@
 - Velocidad
 - Se tendrá que actualizar en tiempo real
 
-## Características
+# Características
 - Componentes con Material Design 3
 - Permisos de ubicación y notificaciones
 - Arquitectura MVVM
