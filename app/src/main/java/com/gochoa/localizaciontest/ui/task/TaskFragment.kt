@@ -3,6 +3,7 @@ package com.gochoa.localizaciontest.ui.task
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -82,14 +83,28 @@ class TaskFragment : Fragment() {
         lifecycleScope.launch {
             val result = locationClient.getLocationUpdates()
             result.collect {
-                binding.tvCoordinates.isVisible = true
-                binding.tvCoordinates.text = getString(
-                    R.string.coordinates_value,
-                    it.latitude.toString(),
-                    it.longitude.toString()
-                )
+                showCoordinates(it)
+                showSpeed(it)
             }
         }
+    }
+
+    private fun showSpeed(it: Location) {
+        binding.tvSpeedValue.isVisible = true
+        val speed = it.speed.toDouble()
+
+        val a: Double = 3.6 * speed
+        val kmhSpeed = Math.round(speed).toInt()
+        binding.tvSpeedValue.text = getString(R.string.kmHr, kmhSpeed.toString())
+    }
+
+    private fun showCoordinates(it: Location) {
+        binding.tvCoordinates.isVisible = true
+        binding.tvCoordinates.text = getString(
+            R.string.coordinates_value,
+            it.latitude.toString(),
+            it.longitude.toString()
+        )
     }
 
     private fun askNotification() {

@@ -12,6 +12,8 @@
     <string name="date_format">"dd/MM/yyyy"</string>
     <string name="coordinates">Coordenadas: </string>
     <string name="coordinates_value">%s,%s</string>
+    <string name="speed">Velocidad:</string>
+    <string name="kmHr"> %s Km/h</string>
 
 
 </resources>
