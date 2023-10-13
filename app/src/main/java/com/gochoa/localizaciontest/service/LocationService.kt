@@ -2,12 +2,16 @@ package com.gochoa.localizaciontest.service
 
 
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import com.gochoa.localizaciontest.R
+import com.gochoa.localizaciontest.ui.container.MainActivity
+import com.gochoa.localizaciontest.utils.Dictionary.NOTIFICATION_CHANNEL_ID
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,6 +20,7 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+
 
 class LocationService : Service() {
 
@@ -43,7 +48,7 @@ class LocationService : Service() {
     }
 
     private fun start() {
-        val notification = NotificationCompat.Builder(this, "location")
+        val notification = NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
             .setContentTitle(getString(R.string.traveling))
             .setSmallIcon(R.drawable.ic_location)
             .setOngoing(true)

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gochoa.localizaciontest.data.local.UIState
 import com.gochoa.localizaciontest.data.local.entity.TaskEntity
-import com.gochoa.localizaciontest.domain.repository.RepositoryImp
+import com.gochoa.localizaciontest.data.repository.RepositoryImp
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch

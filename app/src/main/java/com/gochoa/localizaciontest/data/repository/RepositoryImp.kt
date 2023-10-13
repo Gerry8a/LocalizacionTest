@@ -1,8 +1,7 @@
-package com.gochoa.localizaciontest.domain.repository
+package com.gochoa.localizaciontest.data.repository
 
 import com.gochoa.localizaciontest.data.local.dao.TaskDao
 import com.gochoa.localizaciontest.data.local.entity.TaskEntity
-import com.gochoa.localizaciontest.domain.model.TaskModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

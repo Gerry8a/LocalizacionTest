@@ -1,13 +1,10 @@
 package com.gochoa.localizaciontest.ui.task.adapter
 
 import android.view.View
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.gochoa.localizaciontest.R
 import com.gochoa.localizaciontest.data.local.entity.TaskEntity
-import com.gochoa.localizaciontest.domain.model.TaskModel
 import com.gochoa.localizaciontest.databinding.ItemTaskBinding
 
 class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {

@@ -1,14 +1,10 @@
 package com.gochoa.localizaciontest.ui.task.adapter
 
 import android.view.LayoutInflater
-import android.view.View.OnLongClickListener
 import android.view.ViewGroup
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.gochoa.localizaciontest.R
 import com.gochoa.localizaciontest.data.local.entity.TaskEntity
-import com.gochoa.localizaciontest.domain.model.TaskModel
 
 class TaskAdapter(
     private var taskList: List<TaskEntity> = emptyList(),
