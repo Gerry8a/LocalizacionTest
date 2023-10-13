@@ -14,7 +14,7 @@
     <string name="coordinates_value">%s,%s</string>
     <string name="speed">Velocidad:</string>
     <string name="kmHr"> %s Km/h</string>
-    <string name="permission_needed">Es necesario dar permisos</string>
+    <string name="permission_needed">Es necesario dar permisos de ubicación</string>
     <string name="traveling">En trayecto</string>
     <string name="start_service">Iniciando servicio</string>
     <string name="end_service">Terminando servicio</string>

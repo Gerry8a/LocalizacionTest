@@ -24,6 +24,7 @@ import com.gochoa.localizaciontest.databinding.FragmentTaskBinding
 import com.gochoa.localizaciontest.service.DefaultLocationClient
 import com.gochoa.localizaciontest.service.LocationClient
 import com.gochoa.localizaciontest.service.LocationService
+import com.gochoa.localizaciontest.service.hasLocationPermission
 import com.gochoa.localizaciontest.ui.task.adapter.TaskAdapter
 import com.gochoa.localizaciontest.ui.task.component.AddTaskDialog
 import com.gochoa.localizaciontest.utils.DateFormatted.getDate
@@ -147,29 +148,32 @@ class TaskFragment : Fragment() {
         }
 
         binding.servicio.setOnClickListener {
-            if (!serviceOn) {
-                val intent = Intent(requireContext(), LocationService::class.java)
-                intent.action = LocationService.ACTION_START
-                requireContext().startService(intent)
-                updateCoordinates()
-                Toast.makeText(
-                    requireContext(),
-                    getString(R.string.start_service), Toast.LENGTH_SHORT
-                ).show()
-                serviceOn = true
+            if (!locationPermissionAccepted) {
+                requestLocationPermission()
             } else {
-                val intent = Intent(requireContext(), LocationService::class.java)
-                intent.action = LocationService.ACTION_STOP
-                requireContext().startService(intent)
-                updateCoordinates()
-                serviceOn = false
-                Toast.makeText(
-                    requireContext(),
-                    getString(R.string.end_service),
-                    Toast.LENGTH_SHORT
-                ).show()
+                if (!serviceOn) {
+                    val intent = Intent(requireContext(), LocationService::class.java)
+                    intent.action = LocationService.ACTION_START
+                    requireContext().startService(intent)
+                    updateCoordinates()
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.start_service), Toast.LENGTH_SHORT
+                    ).show()
+                    serviceOn = true
+                } else {
+                    val intent = Intent(requireContext(), LocationService::class.java)
+                    intent.action = LocationService.ACTION_STOP
+                    requireContext().startService(intent)
+                    updateCoordinates()
+                    serviceOn = false
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.end_service),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
-
         }
     }
 
@@ -182,10 +186,6 @@ class TaskFragment : Fragment() {
                 askNotification()
             } else {
                 locationPermissionAccepted = false
-                Toast.makeText(
-                    requireContext(),
-                    getString(R.string.permission_needed), Toast.LENGTH_SHORT
-                ).show()
                 askNotification()
             }
         }
