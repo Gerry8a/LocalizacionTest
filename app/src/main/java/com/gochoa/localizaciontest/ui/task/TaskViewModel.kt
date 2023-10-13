@@ -24,7 +24,7 @@ class TaskViewModel @Inject constructor(
         getTask()
     }
 
-    fun getTask() = viewModelScope.launch {
+    private fun getTask() = viewModelScope.launch {
         repositoryImp.getAllTask()
             .catch {
                 _taskList.postValue(UIState.Error(""))
@@ -49,5 +49,9 @@ class TaskViewModel @Inject constructor(
             }
         }
         repositoryImp.updateStatus(task)
+    }
+
+    fun deleteTask(task: TaskEntity) = viewModelScope.launch {
+        repositoryImp.deleteTask(task)
     }
 }

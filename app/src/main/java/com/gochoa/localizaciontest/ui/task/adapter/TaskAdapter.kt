@@ -1,6 +1,7 @@
 package com.gochoa.localizaciontest.ui.task.adapter
 
 import android.view.LayoutInflater
+import android.view.View.OnLongClickListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -11,7 +12,8 @@ import com.gochoa.localizaciontest.domain.model.TaskModel
 
 class TaskAdapter(
     private var taskList: List<TaskEntity> = emptyList(),
-    private val onItemSelected: (TaskEntity) -> Unit
+    private val onItemSelected: (TaskEntity) -> Unit,
+    private val onLongClickListener: (TaskEntity) -> Unit
 ) : RecyclerView.Adapter<TaskViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
@@ -23,7 +25,7 @@ class TaskAdapter(
     override fun getItemCount(): Int = taskList.size
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        holder.render(taskList[position], onItemSelected)
+        holder.render(taskList[position], onItemSelected, onLongClickListener)
     }
 
 

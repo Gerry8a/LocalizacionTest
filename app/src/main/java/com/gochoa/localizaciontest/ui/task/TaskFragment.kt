@@ -40,7 +40,7 @@ class TaskFragment : Fragment() {
     private var locationPermissionAccepted = false
     private lateinit var locationClient: LocationClient
     private var serviceOn = false
-    
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -105,6 +105,7 @@ class TaskFragment : Fragment() {
             when (it) {
                 is UIState.Error -> {
                 }
+
                 is UIState.Loading -> {}
                 is UIState.Success -> {
                     fillData(it.data!!)
@@ -116,6 +117,8 @@ class TaskFragment : Fragment() {
     private fun fillData(taskList: MutableList<TaskEntity>) {
         taskAdapter = TaskAdapter(taskList, onItemSelected = {
             viewModel.updateTask(it)
+        }, onLongClickListener = {
+            viewModel.deleteTask(it)
         })
         binding.rvTask.apply {
             adapter = taskAdapter
@@ -131,8 +134,11 @@ class TaskFragment : Fragment() {
                     date = getDate(requireContext()),
                     description = description
                 )
-                if (task.title.isEmpty() || task.description.isEmpty()){
-                    Toast.makeText(requireContext(), "Falta información", Toast.LENGTH_SHORT).show()
+                if (task.title.isEmpty() || task.description.isEmpty()) {
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.missing_information), Toast.LENGTH_SHORT
+                    ).show()
                 } else {
                     viewModel.insertTask(task)
                 }
@@ -141,12 +147,15 @@ class TaskFragment : Fragment() {
         }
 
         binding.servicio.setOnClickListener {
-            if (!serviceOn){
+            if (!serviceOn) {
                 val intent = Intent(requireContext(), LocationService::class.java)
                 intent.action = LocationService.ACTION_START
                 requireContext().startService(intent)
                 updateCoordinates()
-                Toast.makeText(requireContext(), "Iniciando servicio", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.start_service), Toast.LENGTH_SHORT
+                ).show()
                 serviceOn = true
             } else {
                 val intent = Intent(requireContext(), LocationService::class.java)
@@ -154,9 +163,13 @@ class TaskFragment : Fragment() {
                 requireContext().startService(intent)
                 updateCoordinates()
                 serviceOn = false
-                Toast.makeText(requireContext(), "Terminando servicio", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.end_service),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
-            
+
         }
     }
 
@@ -169,8 +182,10 @@ class TaskFragment : Fragment() {
                 askNotification()
             } else {
                 locationPermissionAccepted = false
-                Toast.makeText(requireContext(),
-                    getString(R.string.permission_needed), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.permission_needed), Toast.LENGTH_SHORT
+                ).show()
                 askNotification()
             }
         }
@@ -192,8 +207,10 @@ class TaskFragment : Fragment() {
                 requestPermissionLauncher.launch(
                     Manifest.permission.ACCESS_FINE_LOCATION
                 )
-           Toast.makeText(requireContext(),
-                    getString(R.string.permission_needed), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.permission_needed), Toast.LENGTH_SHORT
+                ).show()
             }
 
             else -> {

@@ -18,4 +18,8 @@ class RepositoryImp @Inject constructor(
       taskDao.updateStatus(entity)
     }
 
+    override suspend fun deleteTask(entity: TaskEntity) {
+       taskDao.deleteTask(entity)
+    }
+
 }
